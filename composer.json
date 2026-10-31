@@ -1,37 +1,44 @@
 {
-    "name": "wbraganca/yii2-dynamicform",
-    "description": "It is widget to yii2 framework to clone form elements in a nested manner, maintaining accessibility.",
+    "name": "braadiv/yii2-dynamicform",
+    "description": "Widget for Yii2 framework to clone form elements in a nested manner. (PHP 8.4 LTS Modernized Fork)",
     "keywords": [
         "wbraganca",
+        "braadiv",
         "yii2",
         "extension",
         "widget",
         "yii2-dynamicform",
         "copy DOM element",
-        "yii2 dynamic form"
+        "yii2 dynamic form",
+        "php84"
     ],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
-    "support": {
-        "issues": "https://github.com/wbraganca/yii2-dynamicform/issues",
-        "wiki": "https://github.com/wbraganca/yii2-dynamicform/wiki/",
-        "source": "https://github.com/wbraganca/yii2-dynamicform"
-    },
+    "homepage": "https://github.com/braadiv/yii2-dynamicform",
     "authors": [
         {
             "name": "Wanderson Bragança",
             "email": "wanderson.wbc@gmail.com",
             "homepage": "http://wbraganca.com"
+        },
+        {
+            "name": "Braa Salahi",
+            "homepage": "https://github.com/braadiv",
+            "role": "PHP 8.4 Modernization Maintainer"
         }
     ],
     "require": {
+        "php": ">=8.1 || ^8.2 || ^8.3 || ^8.4",
         "yiisoft/yii2": "~2.0.5",
-        "symfony/css-selector": "~2.8|~3.0",
-        "symfony/dom-crawler": "~2.8|~3.0"
+        "braadiv/css-selector": "^3.4",
+        "braadiv/dom-crawler": "^3.4"
     },
     "autoload": {
         "psr-4": {
             "wbraganca\\dynamicform\\": "src"
         }
+    },
+    "replace": {
+        "wbraganca/yii2-dynamicform": "self.version"
     }
 }
