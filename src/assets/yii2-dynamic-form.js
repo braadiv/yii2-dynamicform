@@ -97,6 +97,13 @@
         return eval($(widgetOptions.widgetBody).parents('div[data-dynamicform]').last().attr('data-dynamicform'));
     };
 
+    var _getWidgetOptionsRoot2 = function(widgetOptions) {
+        var widgetOptionsRoot = Object.assign({}, eval($(widgetOptions.widgetBody).closest('div[data-dynamicform]').attr('data-dynamicform')));
+        widgetOptionsRoot.widgetItem = $(widgetOptions.widgetItem).last().add($(widgetOptions.widgetItem).first());
+        return widgetOptionsRoot;
+    };
+
+
     var _getLevel = function($elem) {
         var level = $elem.parents('div[data-dynamicform]').length;
         level = (level < 0) ? 0 : level;
@@ -128,6 +135,9 @@
             _restoreSpecialJs(widgetOptions);
             _fixFormValidaton(widgetOptions);
             $elem.closest('.' + widgetOptions.widgetContainer).triggerHandler(events.afterInsert, $newclone);
+            if (typeof setPositionVal !== 'undefined' && typeof setPositionVal === 'function'){
+                window.setPositionVal($newclone);
+            }
         } else {
             // trigger a custom event for hooking
             $elem.closest('.' + widgetOptions.widgetContainer).triggerHandler(events.limitReached, widgetOptions.limit);
@@ -266,8 +276,9 @@
         var widgetOptionsRoot = _getWidgetOptionsRoot(widgetOptions);
 
         $(widgetOptionsRoot.widgetItem).each(function(index) {
-            var $item = $(this);
-            $(this).find('*').each(function() {
+
+            $(this).find("input,select,textarea,div.form-group").each(function() {
+
                 // update "id" attribute
                 _updateAttrID($(this), index);
 
@@ -336,7 +347,15 @@
     };
 
     var _restoreSpecialJs = function(widgetOptions) {
-        var widgetOptionsRoot = _getWidgetOptionsRoot(widgetOptions);
+        var widgetOptionsRoot =  _getWidgetOptionsRoot2(widgetOptions);
+
+          "ckeditor"
+        var $hasEditor = $(widgetOptionsRoot.widgetItem).find("textarea.ck_editor");
+        if ($hasEditor.length > 0) {
+            $hasEditor.each(function() {
+                window.checkEditor(this)
+            });
+        }
 
         // "jquery.inputmask"
         var $hasInputmask = $(widgetOptionsRoot.widgetItem).find('[data-plugin-inputmask]');
@@ -455,12 +474,12 @@
                     _restoreKrajeeDepdrop($(this));
                 }
 
-                $.when($('#' + id).select2(configSelect2)).done(initSelect2Loading(id, '.select2-container--krajee'));
+                $.when($('#' + id).select2(configSelect2)).done(initS2Loading(id, '.select2-container--krajee'));
 
                 var kvClose = 'kv_close_' + id.replace(/\-/g, '_');
 
                 $('#' + id).on('select2:opening', function(ev) {
-                    initSelect2DropStyle(id, kvClose, ev);
+                    initS2Loading(id, kvClose, ev);
                 });
 
                 $('#' + id).on('select2:unselect', function() {
