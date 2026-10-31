@@ -15,6 +15,11 @@
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "homepage": "https://github.com/braadiv/yii2-dynamicform",
+    "support": {
+        "issues": "https://github.com/braadiv/yii2-dynamicform/issues",
+        "wiki": "https://github.com/wbraganca/yii2-dynamicform/wiki/",
+        "source": "https://github.com/braadiv/yii2-dynamicform"
+    },
     "authors": [
         {
             "name": "Wanderson Bragança",
